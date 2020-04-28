@@ -1,7 +1,9 @@
+import by.vsu.mf.ai.ssd.strings.Job;
+
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class Transform {
+public class Transform implements Job {
     String str;
     int length;
 
@@ -31,6 +33,19 @@ public class Transform {
             }
         }
         System.out.println(strb);
+    }
+
+    public void perform(StringBuilder strb){
+        length = strb.length();
+        for (int i = 0; i < length; i++){
+            if (strb.charAt(i) >= 48 && strb.charAt(i) <= 57 && i + 7 < length){
+                if (checkSubstring(strb.substring(i, (i + 8)))){
+                    if (strb.length() > length) strb.append(",");
+                    strb.append(" " + strb.substring(i, (i + 8)));
+                    i += 7;
+                }
+            }
+        }
     }
 
     private boolean checkSubstring(String substring){
