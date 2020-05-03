@@ -18,10 +18,13 @@ public class Transform {
                 }
             }
         }
+        str = strb.toString();
         System.out.println(strb);
     }
 
-
+    public String getStr() {
+        return str;
+    }
 
     private boolean checkSubstring(String substring){
         if (substring.matches("\\d{2}(\\-)\\d{2}(\\-)\\d{2}")) return true;

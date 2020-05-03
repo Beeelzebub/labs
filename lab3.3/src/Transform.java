@@ -18,11 +18,16 @@ public class Transform implements Job {
                 }
             }
         }
+        str = strb.toString();
     }
 
     private boolean checkSubstring(String substring){
         if (substring.matches("\\d{2}(\\-)\\d{2}(\\-)\\d{2}")) return true;
         else return false;
+    }
+
+    public String getStr() {
+        return str;
     }
 
     public void stringOutput(String s){
