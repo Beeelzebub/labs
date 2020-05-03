@@ -11,8 +11,8 @@ public class Runner {
          * Первое задание. Результат выводится в консоль.
          */
         Transform transform = new Transform();
-        transform.setStr("I've seen things you people wouldn't believe.");
-        transform.firtstTask("woul","I", "gs");
+        transform.setStr("aaaaaff aaaafaf afff ffaaaaa");
+        transform.firtstTask("f","a", "f");
         /**
          * Второе задание. Результат выводится в консоль.
          */
