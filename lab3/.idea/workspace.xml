@@ -88,6 +88,7 @@
     </state>
     <state x="592" y="216" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588511670318" />
     <state x="740" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588096165632" />
+<<<<<<< Updated upstream
     <state width="1493" height="28" key="GridCell.Tab.0.bottom" timestamp="1588511274920">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -128,6 +129,48 @@
     </state>
     <state width="1493" height="28" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1588193627252" />
     <state width="1876" height="166" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588098900269" />
+=======
+    <state width="1876" height="166" key="GridCell.Tab.0.bottom" timestamp="1588099719440">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587921788396" />
+    <state width="1876" height="166" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588099719440" />
+    <state width="1876" height="166" key="GridCell.Tab.0.center" timestamp="1588099719440">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587921788396" />
+    <state width="1876" height="166" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588099719440" />
+    <state width="1876" height="166" key="GridCell.Tab.0.left" timestamp="1588099719440">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587921788396" />
+    <state width="1876" height="166" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588099719440" />
+    <state width="1876" height="166" key="GridCell.Tab.0.right" timestamp="1588099719440">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587921788396" />
+    <state width="1876" height="166" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588099719440" />
+    <state width="1876" height="166" key="GridCell.Tab.1.bottom" timestamp="1588099719440">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587921788396" />
+    <state width="1876" height="166" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588099719440" />
+    <state width="1876" height="166" key="GridCell.Tab.1.center" timestamp="1588099719440">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1587921788396" />
+    <state width="1876" height="166" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588099719440" />
+    <state width="1876" height="166" key="GridCell.Tab.1.left" timestamp="1588099719440">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1587921788396" />
+    <state width="1876" height="166" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588099719440" />
+    <state width="1876" height="166" key="GridCell.Tab.1.right" timestamp="1588099719440">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1587921788396" />
+    <state width="1876" height="166" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588099719440" />
+>>>>>>> Stashed changes
     <state x="440" y="93" key="SettingsEditor" timestamp="1588096179214">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
