@@ -55,6 +55,11 @@ public class MyQueue<T> {
         return temp;
     }
 
+    public boolean isEmpty(){
+        if (length == 0) return true;
+        else return false;
+    }
+
     public int getLength() {
         return length;
     }
