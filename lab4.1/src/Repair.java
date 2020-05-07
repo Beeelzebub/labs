@@ -14,12 +14,10 @@ public class Repair {
     public void distribution(Gasbag gasbag){
         if (gasbag.getGas() == 100 && gasbag.isServiceable()) repairedGasbags.push(gasbag);
         else if (gasbag.getGas() < 100 && gasbag.isServiceable()) noGasGasbags.push(gasbag);
-        else if (gasbag.getGas() < 100 && gasbag.getGas() != 0 && !gasbag.isServiceable() && !noGasGasbags.isEmpty()){
-            donorsGasbags.push(gasbag);
-            refill();
-        }
-        else if (gasbag.getGas() < 100 && !gasbag.isServiceable() && noGasGasbags.isEmpty()) donorsGasbags.push(gasbag);
+        else if (gasbag.getGas() < 100 && gasbag.getGas() != 0 && !gasbag.isServiceable() && !noGasGasbags.isEmpty()) donorsGasbags.push(gasbag);
+        else if (gasbag.getGas() < 100 && gasbag.getGas() != 0 && !gasbag.isServiceable() && noGasGasbags.isEmpty()) donorsGasbags.push(gasbag);
         else brokenGasbags.push(gasbag);
+        if (!noGasGasbags.isEmpty() && !donorsGasbags.isEmpty()) refill();
     }
 
     public void refill(){
@@ -46,6 +44,7 @@ public class Repair {
             gasbag = (Gasbag) brokenGasbags.pull();
             System.out.println("Gasbag number " + gasbag.getNumber());
         }
+        System.out.println("");
     }
 
     private void repairedGasbagsOutput(){
@@ -53,9 +52,10 @@ public class Repair {
         System.out.println("Repaired gasbags:");
         while (!repairedGasbags.isEmpty()){
             gasbag = (Gasbag) repairedGasbags.pull();
-            if (gasbag.isRefilled()) System.out.println("Gasbag number " + gasbag.getNumber() + " was refilled" + gasbag.getRefillInfo());
+            if (gasbag.isRefilled()) System.out.println("Gasbag number " + gasbag.getNumber() +  " has " + gasbag.getGas() + "% and was refilled" + gasbag.getRefillInfo());
             else System.out.println("Gasbag number " + gasbag.getNumber());
         }
+        System.out.println("");
     }
 
     private void donorsGasbagsOutput(){
@@ -63,8 +63,9 @@ public class Repair {
         System.out.println("Donors gasbags:");
         while (!donorsGasbags.isEmpty()){
             gasbag = (Gasbag) donorsGasbags.pull();
-            System.out.println("Gasbag number " + gasbag.getNumber() + "has" + gasbag.getGas());
+            System.out.println("Gasbag number " + gasbag.getNumber() + " has " + gasbag.getGas() + "%");
         }
+        System.out.println("");
     }
 
     private  void noGasGasbagsOutput(){
@@ -72,10 +73,9 @@ public class Repair {
         System.out.println("incomplete gasbags:");
         while (!noGasGasbags.isEmpty()){
             gasbag = (Gasbag) noGasGasbags.pull();
-            System.out.println("Gasbag number " + gasbag.getNumber());
+            if (gasbag.isRefilled()) System.out.println("Gasbag number " + gasbag.getNumber() + "has " + gasbag.getGas() + "and was refilled" + gasbag.getRefillInfo());
+            else System.out.println("Gasbag number " + gasbag.getNumber());
         }
+        System.out.println("");
     }
-
-
-
 }

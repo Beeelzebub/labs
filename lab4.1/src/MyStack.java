@@ -1,34 +1,31 @@
 public class MyStack {
     private Object[] node;
     private int current;
-    private boolean empty;
+    private int length;
 
     public MyStack(){
         current = 0;
-
+        length = 0;
         node = new Object[100];
     }
 
     public void push(Object value){
-        if (!empty){
-            empty = false;
-        }
+        length++;
         node[current] = value;
         current++;
     }
 
     public Object pull(){
-        if (current == 0){
-            empty = true;
-            return node[current];
-        } else {
+        if (length != 0){
+            length--;
             current--;
             return node[current];
-        }
+        } else return null;
     }
 
     public boolean isEmpty(){
-        return empty;
+        if (length == 0) return true;
+        else return false;
     }
 
     public int getLength() {
