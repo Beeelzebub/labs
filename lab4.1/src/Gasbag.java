@@ -18,15 +18,18 @@ public class Gasbag {
         if (this.gas + gasbag.getGas() > 100){
             gasbag.subGas(100 - this.gas);
             setRefillInfo(gasbag.getNumber(), 100 - this.gas);
+            System.out.println("Gasbag number " + gasbag.getNumber() + " refill gasbag number " + this.number + " by " + (100 - this.gas) + "%");
             this.gas = 100;
         }
         else if (this.gas + gasbag.getGas() <= 100){
             setRefillInfo(gasbag.getNumber(), gasbag.getGas());
             this.gas += gasbag.getGas();
+            System.out.println("Gasbag number " + gasbag.getNumber() + " refill gasbag number " + this.number  + " by " + gasbag.getGas() + "%");
             gasbag.subGas(gasbag.getGas());
         }
         else {
             setRefillInfo(gasbag.getNumber(), gasbag.getGas());
+            System.out.println("Gasbag number " + gasbag.getNumber() + " refill gasbag number " + this.number + " by " + gasbag.getGas() + "%");
             this.gas += gasbag.getGas();
             gasbag.subGas(gasbag.getGas());
         }

@@ -12,25 +12,50 @@ public class Repair {
     }
 
     public void distribution(Gasbag gasbag){
-        if (gasbag.getGas() == 100 && gasbag.isServiceable()) repairedGasbags.push(gasbag);
-        else if (gasbag.getGas() < 100 && gasbag.isServiceable()) noGasGasbags.push(gasbag);
-        else if (gasbag.getGas() < 100 && gasbag.getGas() != 0 && !gasbag.isServiceable() && !noGasGasbags.isEmpty()) donorsGasbags.push(gasbag);
-        else if (gasbag.getGas() < 100 && gasbag.getGas() != 0 && !gasbag.isServiceable() && noGasGasbags.isEmpty()) donorsGasbags.push(gasbag);
+        if (gasbag.getGas() == 100 && gasbag.isServiceable()) {
+            System.out.println("Gasbag number " + gasbag.getNumber() + " going to repairedGasbags stack");
+            repairedGasbags.push(gasbag);
+        }
+        else if (gasbag.getGas() < 100 && gasbag.isServiceable()) {
+            System.out.println("Gasbag number " + gasbag.getNumber() + " going to noGasGasbags stack");
+            noGasGasbags.push(gasbag);
+        }
+        else if (gasbag.getGas() < 100 && gasbag.getGas() != 0 && !gasbag.isServiceable() && !noGasGasbags.isEmpty()) {
+            refill(gasbag);
+        }
+        else if (gasbag.getGas() < 100 && gasbag.getGas() != 0 && !gasbag.isServiceable() && noGasGasbags.isEmpty()) {
+            System.out.println("Gasbag number " + gasbag.getNumber() + " going to repairedGasbags stack");
+            donorsGasbags.push(gasbag);
+        }
         else brokenGasbags.push(gasbag);
-        if (!noGasGasbags.isEmpty() && !donorsGasbags.isEmpty()) refill();
+        if (!noGasGasbags.isEmpty() && !donorsGasbags.isEmpty() && gasbagsQueue.isEmpty()) {
+            Gasbag temp_gasbag;
+            while (!noGasGasbags.isEmpty()) {
+                temp_gasbag = (Gasbag) noGasGasbags.pull();
+                System.out.println("Gasbag number " + temp_gasbag.getNumber() + " going to gasbagsQueue stack from noGasGasbags");
+                gasbagsQueue.push(temp_gasbag);
+            }
+            while (!donorsGasbags.isEmpty()) {
+                temp_gasbag = (Gasbag) donorsGasbags.pull();
+                System.out.println("Gasbag number " + gasbag.getNumber() + " going to gasbagsQueue stack from donorsGasbags");
+                gasbagsQueue.push(temp_gasbag);
+            }
+        }
     }
 
-    public void refill(){
-        Gasbag gasbag = (Gasbag) donorsGasbags.pull();
-        Gasbag noGasGasbag = (Gasbag) noGasGasbags.pull();
-        if (noGasGasbag != null){
+    public void refill(Gasbag gasbag){
+        while(!noGasGasbags.isEmpty() && gasbag.getGas() != 0){
+            Gasbag noGasGasbag = (Gasbag) noGasGasbags.pull();
             noGasGasbag.addGas(gasbag);
-            this.distribution(noGasGasbag);
-            this.distribution(gasbag);
+            if (noGasGasbag.getGas() == 100) repairedGasbags.push(noGasGasbag);
+            else noGasGasbags.push(noGasGasbag);
+            if (gasbag.getGas() == 0) brokenGasbags.push(gasbag);
+            if (noGasGasbags.isEmpty() && gasbag.getGas() > 0) donorsGasbags.push(gasbag);
         }
     }
 
     public void resultOutput(){
+        System.out.println("\nResult info:");
         if (!brokenGasbags.isEmpty()) brokenGasbagsOutput();
         if (!repairedGasbags.isEmpty()) repairedGasbagsOutput();
         if (!donorsGasbags.isEmpty()) donorsGasbagsOutput();

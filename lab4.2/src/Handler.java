@@ -4,9 +4,12 @@ import java.util.*;
 public class Handler {
     private Scanner in = new Scanner(System.in);
     public ArrayList<Enrollee> enrolles;
+    String csvFile;
 
-    public Handler(){
+    public Handler(String csvFile){
+        this.csvFile = csvFile;
         enrolles = new ArrayList<Enrollee>();
+        read();
     }
 
     public void getNames(){
@@ -30,6 +33,7 @@ public class Handler {
         enrollee.setCertificate(in.nextInt());
         enrolles.add(enrollee);
         System.out.println("Data added");
+        write();
         waiting();
     }
 
@@ -70,12 +74,14 @@ public class Handler {
                 break;
             default: System.out.println("Incorrect input :(");
         }
+        write();
         waiting();
     }
 
     public void delete(int index){
         if (!enrolles.isEmpty()) enrolles.remove(index);
         else System.out.println("No data :(");
+        write();
         waiting();
     }
 
@@ -161,43 +167,45 @@ public class Handler {
         waiting();
     }
 
-    public void read(String csvFile){
+    public void read(){
         BufferedReader br = null;
+        File file = new File(csvFile);
         String line = "";
         String cvsSplitBy = ";";
-
-        try {
-            br = new BufferedReader(new FileReader(csvFile));
-            while ((line = br.readLine()) != null) {
-                String[]fileInfo = line.split(cvsSplitBy);
-                Enrollee enrollee = new Enrollee();
-                enrollee.setFirstName(fileInfo[0]);
-                enrollee.setSecondName(fileInfo[1]);
-                enrollee.setMathScores(Integer.parseInt(fileInfo[2]));
-                enrollee.setPhysicScores(Integer.parseInt(fileInfo[3]));
-                enrollee.setLanguageScore(Integer.parseInt(fileInfo[4]));
-                enrollee.setCertificate(Integer.parseInt(fileInfo[5]));
-                enrolles.add(enrollee);
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
+        if (file.isFile()){
                 try {
-                    br.close();
+                    br = new BufferedReader(new FileReader(csvFile));
+                    while ((line = br.readLine()) != null) {
+                        String[]fileInfo = line.split(cvsSplitBy);
+                        Enrollee enrollee = new Enrollee();
+                        enrollee.setFirstName(fileInfo[0]);
+                        enrollee.setSecondName(fileInfo[1]);
+                        enrollee.setMathScores(Integer.parseInt(fileInfo[2]));
+                        enrollee.setPhysicScores(Integer.parseInt(fileInfo[3]));
+                        enrollee.setLanguageScore(Integer.parseInt(fileInfo[4]));
+                        enrollee.setCertificate(Integer.parseInt(fileInfo[5]));
+                        enrolles.add(enrollee);
+                    }
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
+                } finally {
+                    if (br != null) {
+                        try {
+                            br.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
+
         }
 
-    }
-
     public  void write(){
-        File file = new File("enrolles.csv");
+        File file = new File(csvFile);
         if (!file.isFile()){
             try {
                 file.createNewFile();

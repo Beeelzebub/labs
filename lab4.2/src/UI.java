@@ -2,11 +2,14 @@ import java.util.Scanner;
 
 public class UI {
     private int choose;
-    private Handler handler = new Handler();
+    private Handler handler;
     Scanner in = new Scanner(System.in);
 
+    public UI (String path){
+        this.handler = new Handler(path);
+    }
+
     public void startProcess(){
-        handler.read("enrolles.csv");
         menu();
         while(true){
             choose = in.nextInt();
@@ -62,7 +65,7 @@ public class UI {
             System.out.println("Enter the field to change:\n1.First name\n2.Second name\n3.Math sores" +
                     "\n4.Physic scores\n5.Language scores\n6.Certificate");
             int field = in.nextInt();
-            if (index > 0 && index < handler.enrolles.size() && field > 0 && field < 7){
+            if (index > 0 && index <= handler.enrolles.size() && field > 0 && field < 7){
                 System.out.println("Enter new data:");
                 handler.edit(index - 1, field);
             } else System.out.println("Incorrect input :(");
