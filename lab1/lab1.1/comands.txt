@@ -1,0 +1,2 @@
+java bin.Calc 2 5 5
+java -cp .;junit.jar;hamcrest-core.jar org.junit.runner.JUnitCore bin.ExpressionTestCase

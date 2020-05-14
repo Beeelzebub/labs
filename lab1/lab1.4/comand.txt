@@ -1,0 +1,1 @@
+java -cp .;painting.jar bin.Draw 0.1
