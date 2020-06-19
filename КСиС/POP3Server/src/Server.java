@@ -16,6 +16,8 @@ public class Server
     private HashMap<String, String> userList;
     private ArrayList<String> mailsList;
     private File[] mailFiles;
+    private ArrayList<Integer> mailsToDelete;
+
 
     public Server()
     {
@@ -47,11 +49,14 @@ public class Server
         }
     }
 
-    private void refresh(){
+    private void refresh()
+    {
         isLogged = false;
         userName = null;
         userPass = null;
         mailsList.clear();
+        mailsToDelete.clear();
+        mailFiles = null;
     }
 
     private void response (String message)
@@ -70,41 +75,46 @@ public class Server
     public void clientHandler()
     {
         String message;
+        int number;
+
         try
         {
             while ((message = reader.readLine()) != null)
             {
                 if (commandDef(message, "USER"))
                 {
-
+                    doUser(message.split(" ")[1]);
                 }
                 else if (commandDef(message, "PASS"))
                 {
-
+                    doPass(message.split(" ")[1]);
                 }
                 else if (commandDef(message, "RETR"))
                 {
-
+                    number = Integer.parseInt(message.split(" ")[1]);
+                    doRetr(number);
                 }
                 else if (commandDef(message, "DELE"))
                 {
-
+                    number = Integer.parseInt(message.split(" ")[1]);
+                    doDele(number);
                 }
                 else if (commandDef(message, "LIST"))
                 {
-
+                    doList();
                 }
                 else if (commandDef(message, "STAT"))
                 {
-
+                    doStat();
                 }
                 else if (commandDef(message, "TOP"))
                 {
-
+                    number = Integer.parseInt(message.split(" ")[1]);
+                    doTop(number);
                 }
                 else if (commandDef(message, "QUIT"))
                 {
-
+                    doQuit();
                 }
                 else
                 {
@@ -114,7 +124,7 @@ public class Server
         }
         catch (Exception ex)
         {
-
+            ex.printStackTrace();
         }
     }
 
@@ -162,17 +172,78 @@ public class Server
         }
     }
 
+    private void doQuit()
+    {
+        int index;
+
+        for (int i = 0; i < mailsToDelete.size(); i++)
+        {
+            index = mailsToDelete.get(i);
+            mailFiles[index].delete();
+        }
+
+        response("+OK");
+
+        try
+        {
+            reader.close();
+            writer.close();
+            clientSock.close();
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
+    private void doTop(int number)
+    {
+        if (!validationCheck(number))
+        {
+            return;
+        }
+
+        int edge = mailsList.get(number).indexOf("\n\n");
+        String head = mailsList.get(number).substring(0, edge);
+        response("+OK\n" + head);
+    }
+
+    private void doStat()
+    {
+        int octetsCount = 0, msgCount = 0;
+        for (int i = 0; i < mailsList.size(); i++)
+        {
+            if (!mailsToDelete.contains(i))
+            {
+                msgCount++;
+                octetsCount += mailsList.get(i).length();
+            }
+        }
+        response("+OK " + msgCount + " messages " + octetsCount + " octets");
+    }
+
+    private void doDele(int number)
+    {
+        if (!validationCheck(number))
+        {
+            return;
+        }
+
+        mailsToDelete.add(number);
+        response("+OK Message deleted");
+    }
+
     private void doRetr(int number)
     {
-        if (!isLogged(false))
+        if (!validationCheck(number))
         {
             return;
         }
-        if (number < 0 || number >= mailsList.size())
-        {
-            response("-ERR No such message");
-            return;
-        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("+OK " + mailsList.get(number).length() + " octets\n");
+        sb.append(mailsList.get(number));
+        response(sb.toString());
     }
 
     private void doList()
@@ -188,10 +259,29 @@ public class Server
 
         for (int i = 0; i < mailsList.size(); i++)
         {
-            sb.append((i + 1) + " " + mailsList.get(i).length() + "\n");
+            if (!mailsToDelete.contains(i))
+            {
+                sb.append((i + 1) + " " + mailsList.get(i).length() + "\n");
+            }
         }
 
         response(sb.toString());
+    }
+
+    private boolean validationCheck(int number)
+    {
+        if (!isLogged(false))
+        {
+            return false;
+        }
+
+        if (number < 0 || number >= mailsList.size() || mailsToDelete.contains(number))
+        {
+            response("-ERR No such message");
+            return false;
+        }
+
+        return true;
     }
 
     private boolean isLogged(boolean forLogin)
@@ -265,11 +355,20 @@ public class Server
         }
     }
 
+    private void go()
+    {
+        while (true)
+        {
+            connection();
+            clientHandler();
+        }
+    }
+
     public static void main(String[] argv)
     {
 
         Server server = new Server();
-        server.connection();
+        server.go();
 
     }
 }
